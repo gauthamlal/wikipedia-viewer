@@ -1,6 +1,10 @@
 import { ADD_SEARCH, REMOVE_SEARCH } from "./types";
 
-const initialState = {};
+const initialState = {
+  results: {},
+  text: "",
+  haveSearched: false
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -8,7 +12,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         results: action.payload,
-        text: action.text
+        text: action.text,
+        haveSearched: true
       };
     case REMOVE_SEARCH:
       return {};

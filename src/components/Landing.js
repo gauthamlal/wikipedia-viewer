@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import { searchText } from "../actions/searchActions";
-import { connect } from "react-redux";
+import CardComponent from "./CardComponent";
 
 const url =
   "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&origin=*&gsrsearch=";
@@ -17,12 +18,28 @@ class Landing extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-    // alert(`${this.state.text} has been submitted!`);
     this.props.searchText(this.state.text, url + this.state.text);
   };
 
+  handleClear = e => {
+    this.setState({text: ""});
+    
+  }
+
   render() {
+    const itemArr = [];
+    for (let key in this.props.objects) {
+      if (this.props.objects.hasOwnProperty(key)) {
+        const current = this.props.objects[key];
+        itemArr.push(
+          <CardComponent key={current.pageid} searchObject={current} />
+        );
+      }
+    }
+
+    // const itemList = <ul>{itemArr}</ul>;
+    const defaultItem = <h2>Go ahead and search!!!</h2>;
+
     return (
       <div>
         <a
@@ -42,6 +59,7 @@ class Landing extends Component {
             value={this.state.text}
             onChange={this.handleChange}
           />
+          <button onClick={this.handleClear}>Clear</button>
           <input
             type="submit"
             name="submit"
@@ -49,13 +67,16 @@ class Landing extends Component {
             value="Search!"
           />
         </form>
+        {this.props.haveSearched ? itemArr : defaultItem}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  text: state.text
+  text: state.text,
+  objects: state.results,
+  haveSearched: state.haveSearched
 });
 
 const mapDispatchToProps = { searchText };

@@ -6,7 +6,8 @@ export const searchText = (searchQuery, url) => dispatch => {
   axios
     .get(url)
     .then(result => {
-      console.log(result.data);
+      console.log(result.data.query.pages);
+
       dispatch({
         type: ADD_SEARCH,
         payload: result.data.query.pages,
@@ -15,3 +16,7 @@ export const searchText = (searchQuery, url) => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const clearText = () => dispatch => {
+  
+}
