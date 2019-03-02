@@ -1,3 +1,20 @@
 .App {
   text-align: center;
 }
+
+.card {
+  border: 1px solid black;
+  margin: 10px 10px;
+  text-align: left;
+  padding: 10px;
+}
+
+.card__title {
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.card__extract {
+  margin: 0px;
+  margin-top: 10px;
+}

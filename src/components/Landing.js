@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { searchText } from "../actions/searchActions";
+import { searchText, clearText } from "../actions/searchActions";
 import CardComponent from "./CardComponent";
 
 const url =
@@ -22,9 +22,9 @@ class Landing extends Component {
   };
 
   handleClear = e => {
-    this.setState({text: ""});
-    
-  }
+    this.setState({ text: "" });
+    this.props.clearText();
+  };
 
   render() {
     const itemArr = [];
@@ -59,7 +59,9 @@ class Landing extends Component {
             value={this.state.text}
             onChange={this.handleChange}
           />
-          <button onClick={this.handleClear}>Clear</button>
+          <button type="button" onClick={this.handleClear}>
+            Clear
+          </button>
           <input
             type="submit"
             name="submit"
@@ -79,7 +81,7 @@ const mapStateToProps = state => ({
   haveSearched: state.haveSearched
 });
 
-const mapDispatchToProps = { searchText };
+const mapDispatchToProps = { searchText, clearText };
 
 export default connect(
   mapStateToProps,

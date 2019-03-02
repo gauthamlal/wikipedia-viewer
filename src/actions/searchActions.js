@@ -18,5 +18,9 @@ export const searchText = (searchQuery, url) => dispatch => {
 };
 
 export const clearText = () => dispatch => {
-  
-}
+  dispatch({
+    type: REMOVE_SEARCH,
+    payload: "",
+    text: ""
+  });
+};
